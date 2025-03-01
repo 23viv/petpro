@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            padding: 20px;
+            color: #333;
+            animation: backgroundAnimation 10s infinite alternate;
+            padding-top: 80px; /* Added to prevent content overlap with fixed navbar */
+        }
+        
+        @keyframes backgroundAnimation {
+            0% { background: url("{% static 'image/pet4.jpg' %}") no-repeat center center fixed; background-size: cover; }
+            100% { background: url("{% static 'image/pet12.jpg' %}") no-repeat center center fixed; background-size: cover; }
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255, 105, 180, 0.9);
+            padding: 15px 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin: 0 20px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ffeb3b; /* Changed to a brighter yellow for better visibility */
+        }
+
+        h1 {
+            color: #ff69b4;
+            font-size: 36px;
+            text-shadow: 2px 2px #fff;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: rgb(242, 66, 124);
+            margin-bottom: 20px;
+        }
+
+        li {
+            background: rgba(255, 255, 255, 0.8);
+            margin: 5px auto; /* Reduced from 15px to 5px to minimize spacing */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+            list-style: none;
+            width: 60%; /* Slightly wider for better readability */
+        }
+
+        .cute-button, .cute-link {
+            background: #ff69b4;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 25px;
+            border-radius: 25px;
+            margin: 5px;
+            transition: 0.3s;
+            border: none;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .cute-button:hover, .cute-link:hover {
+            background: #ff4081;
+            transform: scale(1.05); /* Reduced scale for subtler effect */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <a href="{% url 'home' %}">🏠 Home</a>
+            <a href="{% url 'chatbot' %}">💬 Chatbot</a>
+            <a href="{% url 'pet_profile' %}">🐾 Pet Profile</a>
+            <a href="https://www.google.com/maps/search/vet+clinic+near+me/">🐶 Vet Clinics</a>
+            <a href="https://www.amazon.com/s?k=pet+food">🍖 Pet Food</a>
+            <a href="{% url 'diet_plan' %}">📜 Diet Plan</a>
+        </div>
+        <div>
+            <a class="cute-button" href="{% url 'login' %}">🚪 Logout</a>
+        </div>
+    </div>
+
+    <h1>Welcome, {{ username }}! 🐾</h1>
+    <h2>What would you like to do?</h2>
+    
+    <ul>
+        <li><a class="cute-link" href="https://www.google.com/maps/search/vet+clinic+near+me/">🐶🐱 Locate Nearest Vet Clinic</a></li>
+        <li><a class="cute-link" href="https://www.amazon.com/s?k=pet+food">🍖 Buy Pet Food</a></li>
+        <li><a class="cute-link" href="{% url 'chatbot' %}">💬 AI Chatbot</a></li>
+        <li><a class="cute-link" href="{% url 'diet_plan' %}">📜 Pet Breed Diet Plan</a></li>
+        <li><a class="cute-link" href="{% url 'pet_profile' %}">🐾 My Pet Profile</a></li>
+    </ul>
+</body>
+</html>

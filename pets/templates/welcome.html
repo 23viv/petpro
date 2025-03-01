@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Cuties</title>
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .welcome-page {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+            background-size: cover;
+            background-position: center;
+            animation: changeBackground 10s infinite alternate;
+        }
+
+        @keyframes changeBackground {
+            0% {
+                background-image: url("{% static 'image/pet2.jpeg' %}");
+            }
+            100% {
+                background-image: url("{% static 'image/pe3.jpg' %}");
+            }
+        }
+
+        .animated-text {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #ff85a2;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .subtitle {
+            color: black;
+            font-size: 1.2rem;
+            margin-bottom: 30px; /* Increased spacing before buttons */
+        }
+
+        .buttons {
+            display: flex;
+            gap: 25px; /* Increased gap between buttons */
+        }
+
+        .btn {
+            background: #ff4081;
+            color: white;
+            padding: 15px 35px; /* Increased padding for larger buttons */
+            border-radius: 30px; /* Slightly larger radius for better proportion */
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem; /* Slightly larger text */
+            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Added subtle shadow */
+        }
+
+        .btn:hover {
+            background: #ff1a66;
+            transform: translateY(-2px); /* Added slight lift on hover */
+        }
+
+        .slogan {
+            font-size: 1rem;
+            margin-top: 30px; /* Increased spacing after buttons */
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+    </style>
+</head>
+<body class="welcome-page">
+    <div class="container">
+        <h1 class="animated-text">Welcome Cuties! 🐾</h1>
+        <p class="subtitle">Join us and take care of your furry friends!</p>
+        <div class="buttons">
+            <a href="{% url 'login' %}" class="btn">Login</a>
+            <a href="{% url 'signup' %}" class="btn">Signup</a>
+        </div>
+        <p class="slogan">Made with love ❤️</p>
+    </div>
+</body>
+</html>

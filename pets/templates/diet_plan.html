@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Diet Plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: url("{% static 'image/pet9.jpg' %}") no-repeat center center/cover;
+            color: rgb(199, 23, 138);
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255, 105, 180, 0.9);
+            padding: 15px 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin: 0 20px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .navbar a:hover {
+            color: #ffeb3b;
+        }
+        .cute-button {
+            background: #ff69b4;
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .cute-button:hover {
+            background: #ff4081;
+        }
+        h2 {
+            color: #ff69b4;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .btn-primary {
+            background: #ff69b4;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background: #ff4081;
+        }
+        .diet-plan-output {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <a href="{% url 'home' %}">🏠 Home</a>
+            <a href="{% url 'chatbot' %}">💬 Chatbot</a>
+            <a href="{% url 'pet_profile' %}">🐾 Pet Profile</a>
+            <a href="https://www.google.com/maps/search/vet+clinic+near+me/">🐶 Vet Clinics</a>
+            <a href="https://www.amazon.com/s?k=pet+food">🍖 Pet Food</a>
+            <a href="{% url 'diet_plan' %}">📜 Diet Plan</a>
+        </div>
+        <div>
+            <a class="cute-button" href="{% url 'login' %}">🚪 Logout</a>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2>Generate a Pet Diet Plan</h2>
+        <form id="dietForm">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="form-label">Pet Type:</label>
+                <input type="text" class="form-control" name="pet_type" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Breed:</label>
+                <input type="text" class="form-control" name="breed" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Age (years):</label>
+                <input type="number" class="form-control" name="age" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Weight (kg):</label>
+                <input type="number" class="form-control" name="weight" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Health Conditions:</label>
+                <input type="text" class="form-control" name="health_condition">
+            </div>
+            <button type="submit" class="btn-primary">Generate Diet Plan</button>
+        </form>
+        <div id="dietPlanResult" class="diet-plan-output"></div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#dietForm").submit(function(event){
+                event.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'diet_plan' %}",
+                    data: $(this).serialize(),
+                    success: function(response){
+                        $("#dietPlanResult").html("<h3>Diet Plan:</h3><p>" + response.diet_plan + "</p>");
+                    },
+                    error: function(){
+                        $("#dietPlanResult").html("<p style='color:red;'>Error generating diet plan. Please try again.</p>");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

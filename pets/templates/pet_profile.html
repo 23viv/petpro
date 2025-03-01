@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Consistent font */
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            padding-top: 80px; /* Added for navbar spacing */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255, 105, 180, 0.9);
+            padding: 15px 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin: 0 20px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ffeb3b;
+        }
+
+        h1 {
+            color: #ff69b4;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #ff69b4;
+            margin: 20px 0;
+        }
+
+        .pet-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pet-list li {
+            background: #fff;
+            padding: 20px;
+            margin: 15px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 60%; /* Consistent with other pages */
+            font-size: 18px;
+        }
+
+        form {
+            background: white;
+            padding: 25px;
+            margin: 25px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 60%; /* Consistent width */
+        }
+
+        input, select, button {
+            margin: 12px 0;
+            padding: 12px;
+            width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        button {
+            background: #ff69b4;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff4081;
+        }
+
+        .cute-button {
+            background: #ff69b4;
+            padding: 12px 25px;
+            border-radius: 25px;
+            transition: 0.3s;
+            border: none;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .cute-button:hover {
+            background: #ff4081;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <a href="{% url 'home' %}">🏠 Home</a>
+            <a href="{% url 'chatbot' %}">💬 Chatbot</a>
+            <a href="{% url 'pet_profile' %}">🐾 Pet Profile</a>
+            <a href="https://www.google.com/maps/search/vet+clinic+near+me/">🐶 Vet Clinics</a>
+            <a href="https://www.amazon.com/s?k=pet+food">🍖 Pet Food</a>
+            <a href="{% url 'diet_plan' %}">📜 Diet Plan</a>
+        </div>
+        <div>
+            <a class="cute-button" href="{% url 'login' %}">🚪 Logout</a>
+        </div>
+    </div>
+
+    <h1>Welcome, {{ username }}! 🐾</h1>
+    <h2>Your Pets:</h2>
+    
+    <ul class="pet-list">
+        {% for pet in user_pets %}
+            <li>
+                <strong>Name:</strong> {{ pet.petname }} <br>
+                <strong>Type:</strong> {{ pet.pet_type }} <br>
+                <strong>Breed:</strong> {{ pet.breed }} <br>
+                <strong>Age:</strong> {{ pet.age }} years
+            </li>
+        {% empty %}
+            <p>No pets added yet!</p>
+        {% endfor %}
+    </ul>
+
+    <h2>Add a New Pet</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="petname" placeholder="Pet Name" required>
+        <select name="pet_type">
+            <option value="Dog">Dog</option>
+            <option value="Cat">Cat</option>
+            <option value="Bird">Bird</option>
+            <option value="Hamster">Hamster</option>
+            <option value="Fish">Fish</option>
+        </select>
+        <input type="text" name="breed" placeholder="Breed (Optional)">
+        <input type="number" name="age" placeholder="Age" min="0" required>
+        <button type="submit">Add Pet</button>
+    </form>
+</body>
+</html>
