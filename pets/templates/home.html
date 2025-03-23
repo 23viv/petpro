@@ -17,7 +17,7 @@
             padding: 20px;
             color: #333;
             animation: backgroundAnimation 10s infinite alternate;
-            padding-top: 80px; /* Added to prevent content overlap with fixed navbar */
+            padding-top: 80px;
         }
         
         @keyframes backgroundAnimation {
@@ -48,7 +48,7 @@
         }
 
         .navbar a:hover {
-            color: #ffeb3b; /* Changed to a brighter yellow for better visibility */
+            color: #ffeb3b;
         }
 
         h1 {
@@ -63,18 +63,44 @@
             margin-bottom: 20px;
         }
 
-        li {
-            background: rgba(255, 255, 255, 0.8);
-            margin: 5px auto; /* Reduced from 15px to 5px to minimize spacing */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            font-size: 18px;
-            list-style: none;
-            width: 60%; /* Slightly wider for better readability */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px auto;
+            max-width: 1200px;
         }
 
-        .cute-button, .cute-link {
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            padding: 20px;
+            transition: all 0.3s ease; /* Modified to include all transitions */
+            text-decoration: none;
+            color: #333;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) rotate(2deg); /* Added rotate effect */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 235, 245, 0.95);
+        }
+
+        .card-emoji {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff69b4;
+        }
+
+        .cute-button {
             background: #ff69b4;
             color: white;
             font-size: 18px;
@@ -88,9 +114,9 @@
             text-decoration: none;
         }
 
-        .cute-button:hover, .cute-link:hover {
+        .cute-button:hover {
             background: #ff4081;
-            transform: scale(1.05); /* Reduced scale for subtler effect */
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -112,12 +138,27 @@
     <h1>Welcome, {{ username }}! 🐾</h1>
     <h2>What would you like to do?</h2>
     
-    <ul>
-        <li><a class="cute-link" href="https://www.google.com/maps/search/vet+clinic+near+me/">🐶🐱 Locate Nearest Vet Clinic</a></li>
-        <li><a class="cute-link" href="https://www.amazon.com/s?k=pet+food">🍖 Buy Pet Food</a></li>
-        <li><a class="cute-link" href="{% url 'chatbot' %}">💬 AI Chatbot</a></li>
-        <li><a class="cute-link" href="{% url 'diet_plan' %}">📜 Pet Breed Diet Plan</a></li>
-        <li><a class="cute-link" href="{% url 'pet_profile' %}">🐾 My Pet Profile</a></li>
-    </ul>
+    <div class="card-container">
+        <a href="https://www.google.com/maps/search/vet+clinic+near+me/" class="card">
+            <div class="card-emoji">🐶🐱</div>
+            <div class="card-text">Locate Nearest Vet Clinic</div>
+        </a>
+        <a href="https://www.amazon.com/s?k=pet+food" class="card">
+            <div class="card-emoji">🍖</div>
+            <div class="card-text">Buy Pet Food</div>
+        </a>
+        <a href="{% url 'chatbot' %}" class="card">
+            <div class="card-emoji">💬</div>
+            <div class="card-text">AI Chatbot</div>
+        </a>
+        <a href="{% url 'diet_plan' %}" class="card">
+            <div class="card-emoji">📜</div>
+            <div class="card-text">Pet Breed Diet Plan</div>
+        </a>
+        <a href="{% url 'pet_profile' %}" class="card">
+            <div class="card-emoji">🐾</div>
+            <div class="card-text">My Pet Profile</div>
+        </a>
+    </div>
 </body>
 </html>
